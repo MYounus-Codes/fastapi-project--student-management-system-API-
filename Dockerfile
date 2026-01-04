@@ -7,11 +7,8 @@ WORKDIR /app
 # Copy project files
 COPY . /app
 
-# Install uv for faster dependency management
-RUN pip install --no-cache-dir uv
-
-# Install dependencies from pyproject.toml
-RUN uv pip install --system --no-cache -e .
+# Install dependencies directly
+RUN pip install --no-cache-dir fastapi[standard]>=0.128.0 python-dotenv>=1.2.1 streamlit>=1.52.2 uvicorn>=0.40.0
 
 # Expose ports for backend and frontend
 EXPOSE 8000 8501
