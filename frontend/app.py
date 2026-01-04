@@ -38,7 +38,7 @@ elif choice == "Add Student":
     if st.button("Add Student"):
         student_data = {"roll_number": roll_number, "name": name, "age": age, "grade": grade}
         response = requests.post(f"{BASE_URL}/students/", json=student_data)
-        if response.status_code == 201:
+        if response.status_code == 200:
             st.success("Student added successfully!")
         else:
             st.error("Failed to add student.")
@@ -72,12 +72,13 @@ elif choice == "Delete Student":
 
 elif choice == "Search Students":
     st.subheader("Search Students")
-    query = st.text_input("Search Query")
+    name = st.text_input("Student Name")
+    roll_number = st.number_input("Roll Number", min_value=1, value=1)
     if st.button("Search"):
-        response = requests.get(f"{BASE_URL}/students/search/", params={"q": query})
+        response = requests.get(f"{BASE_URL}/students/search/", params={"name": name, "roll_number": roll_number})
         if response.status_code == 200:
             students = response.json()
-            df = pd.DataFrame(students)
+            df = pd.DataFrame(students) 
             st.dataframe(df)
         else:
             st.error("Failed to search students.")

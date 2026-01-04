@@ -67,7 +67,7 @@ def delete_student(roll_number: int):
 
 @app.get("/students/search/", response_model=List[Student])
 def search_students(name: Optional[str] = None, roll_number: Optional[int] = None):
-    results = []
+    results = [] 
     for student in students_db:
         if (name and name.lower() in student.name.lower()) or (roll_number and student.roll_number == roll_number):
             results.append(student)
